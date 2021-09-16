@@ -10,12 +10,10 @@ const playAudio = (e) => {
 }
 
 const removeTransition = (e) => {
-    const key = document.querySelectorAll('.playing');
-    if(e.propertyName !== 'transform') return; //skip if not transform
-    key[0].classList.remove('playing');
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+    if(!key) return; //stop the function
+    key.classList.remove('playing');
 }
 
-const keys = document.querySelectorAll('.key');
-keys.forEach(key => key.addEventListener('transitionend', removeTransition));
-
 window.addEventListener('keydown', playAudio);
+window.addEventListener('keyup', removeTransition);
